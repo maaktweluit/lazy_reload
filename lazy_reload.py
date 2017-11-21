@@ -18,11 +18,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-__author__ = 'Dave Abrahams <dave@boostpro.com>'
-__version__ = '1.1'
+__author__ = 'Dave Abrahams <dave@boostpro.com>, Maaktweluit <maaktweluit@noreply+github.com'
+__version__ = '1.2'
 
 import sys
-import __builtin__
+import builtins
 
 # If this module is itself lazy_reload'ed, the following attributes
 # will survive until we explicitly overwrite them.
@@ -32,8 +32,8 @@ __all__ = ['lazy_reload']
 if 'LazyReloader' in globals():
     # remove any existing reloader from sys.meta_path
     sys.meta_path = [ f for f in sys.meta_path if type(f) is not LazyReloader ]
-    if __builtin__.__import__ == _lazy_reload_import:
-       __builtin__.__import__ = _real_import
+    if builtins.__import__ == _lazy_reload_import:
+       builtins.__import__ = _real_import
 else:
     _real_import = __builtin__.__import__
     # The first load must initialize the list of modules to be loaded
@@ -87,5 +87,5 @@ def _lazy_reload_import(name, globals={}, locals={}, fromlist=[], level=-1):
             LazyReloader().load_module(fullname)
     return m
 
-if __builtin__.__import__ == _real_import:
-    __builtin__.__import__ = _lazy_reload_import
+if builtins.__import__ == _real_import:
+    builtins.__import__ = _lazy_reload_import
