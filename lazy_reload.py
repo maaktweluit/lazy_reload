@@ -35,7 +35,7 @@ if 'LazyReloader' in globals():
     if builtins.__import__ == _lazy_reload_import:
        builtins.__import__ = _real_import
 else:
-    _real_import = __builtin__.__import__
+    _real_import = builtins.__import__
     # The first load must initialize the list of modules to be loaded
     modules_to_reload = {}
 
